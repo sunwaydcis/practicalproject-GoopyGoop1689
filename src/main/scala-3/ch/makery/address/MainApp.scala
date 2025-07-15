@@ -1,7 +1,7 @@
 package ch.makery.address
 
 import ch.makery.address.model.Person
-import ch.makery.address.view.PersonEditDialogController
+import ch.makery.address.view.{PersonEditDialogController, PersonOverviewController}
 import javafx.fxml.FXMLLoader
 import scalafx.application.JFXApp3
 import scalafx.application.JFXApp3.PrimaryStage
@@ -21,6 +21,8 @@ object MainApp extends JFXApp3:
   var roots: Option[scalafx.scene.layout.BorderPane] = None
   //stylesheet
   var cssResource = getClass.getResource("view/DarkTheme.css")
+  
+  var personOverviewControl: Option[PersonOverviewController] = None
 
   // The data as an observable list of Persons.
   val personData = new ObservableBuffer[Person]()
@@ -61,6 +63,7 @@ object MainApp extends JFXApp3:
     val loader = new FXMLLoader(resource)
     loader.load()
     val roots = loader.getRoot[jfxs.layout.AnchorPane]
+    personOverviewControl = Option(loader.getController[PersonOverviewController])
     this.roots.get.center = roots
 
   val aString = new StringProperty("sunway")
